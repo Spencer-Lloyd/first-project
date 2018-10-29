@@ -3,6 +3,8 @@ let characters = []
 
 let forceSensitive = []
 
+let nonForceSensitive = []
+
 let id = 1
 
 module.exports = {
@@ -22,9 +24,18 @@ module.exports = {
         var {character} = request.body
         character.id = id
         id ++
-        character.forceUser = "True"
+        character.forceUser = "The force is strong with this one"
         forceSensitive.push(character)
         result.status(200).send(forceSensitive)
+    },
+
+    nonForceSort: (request, result) => {
+        var {character} = request.body
+        character.id = id
+        id ++
+        character.forceUser = "This is not the character you are looking for"
+        nonForceSensitive.push(character)
+        result.status(200).send(nonForceSensitive)
     },
 
     deleteCharacter: (request, result) => {
@@ -35,6 +46,15 @@ module.exports = {
         }
         result.status(200).send(forceSensitive)
     },
+
+    deleteNonForce: (request, result) => {
+        var {id} = request.params
+        var index = nonForceSensitive.findIndex(nonForceSensitive => nonForceSensitive.id === Number(id))
+        if(index !== -1) {
+            nonForceSensitive.splice(index, 1)
+        }
+        result.status(200).send(nonForceSensitive)
+    }
 
    
 }
