@@ -13,6 +13,7 @@ class Characters extends Component {
         }
 
         this.getData = this.getData.bind(this)
+        this.deleteHandler = this.deleteHandler.bind(this)
     // figure out what .bind does so you can explain it
 
     }
@@ -43,6 +44,15 @@ class Characters extends Component {
         })
     }
 
+    deleteHandler(id) {
+        axios.delete(`/api/people/${id}`).then( results => {
+            this.setState({
+                forceSensitive: results.data
+            })
+        })
+    }
+    
+
     // after things are done work the planents into the mix
 
 
@@ -70,18 +80,21 @@ class Characters extends Component {
                 })}
                 <h1>Force Users</h1>
                 {/* Make a component for each one of these */}
-                {/* In each component, have some state that you can update. Then wehn ready have a function that passes the id and the updated value on post request  */}
+                {/* In each component, have some state that you can update. Then when ready have a function that passes the id and the updated value on post request  */}
                 {this.state.forceSensitive.map((forceSensitive, index) => {
+                    console.log('111', forceSensitive)
                     return (
                         <div key={ index }>
-                            <h4>Name: { forceSensitive.name}</h4>
+                            <h4>Name: {forceSensitive.name}</h4>
                             <h4>Height: {forceSensitive.height} cm</h4>
                             <h4>Hair Color: {forceSensitive.hair_color}</h4>
                             <h4>Gender: {forceSensitive.gender}</h4>
                             {/* <h4>Home Planet: {forceSensitive.homeworld}</h4> */}
                             <h4>Eye Color: {forceSensitive.eye_color}</h4>
                             <h4>Birth Year: {forceSensitive.birth_year}</h4>
-                            <h5>Mass: {forceSensitive.mass} kg</h5>
+                            <h4>Mass: {forceSensitive.mass} kg</h4>
+                            <h4>Force User: {forceSensitive.forceUser}</h4>
+                            <button onClick={ () => this.deleteHandler(forceSensitive.id)}>Remove</button>
                         </div>
                     )
                 })}

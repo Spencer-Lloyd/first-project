@@ -12,7 +12,7 @@ app.get('/api/people', controller.getCharacters)
 app.post('/api/people', controller.createCharacters)
 //Step 3 - axios post request from front end matches this route so callback gets invoked
 app.post('/api/people/test', controller.sorted)
-
+app.delete('/api/people/:id', controller.deleteCharacter)
 
 
 app.listen(port, () => {
