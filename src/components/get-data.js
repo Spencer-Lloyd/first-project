@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+import Character from './character'
 
 
 class Characters extends Component {
@@ -17,6 +18,7 @@ class Characters extends Component {
     // figure out what .bind does so you can explain it
 
     }
+
 
     getData() {
         axios.get('https://swapi.co/api/people/').then( results => {
@@ -65,14 +67,8 @@ class Characters extends Component {
                 {this.state.characters.map((character, index) => {
                     return (
                         <div key={ index }>
-                            <h4>Name: { character.name }</h4>
-                            <h5>Height: { character.height} cm</h5>
-                            <h5>Hair Color: {character.hair_color}</h5>
-                            <h5>Gender: {character.gender}</h5>
-                            {/* <h3>Home Planet: {character.homeworld}</h3> */}
-                            <h5>Eye Color: {character.eye_color}</h5>
-                            <h5>Birth Year: {character.birth_year}</h5>
-                            <h5>Mass: {character.mass} kg</h5>
+                            <Character 
+                            character={character}/>
                             {/* Step 1 - click button */}
                             <button onClick={ () => this.forceSensitive(character)}>Has Force Powers</button>
                         </div>
@@ -89,7 +85,6 @@ class Characters extends Component {
                             <h4>Height: {forceSensitive.height} cm</h4>
                             <h4>Hair Color: {forceSensitive.hair_color}</h4>
                             <h4>Gender: {forceSensitive.gender}</h4>
-                            {/* <h4>Home Planet: {forceSensitive.homeworld}</h4> */}
                             <h4>Eye Color: {forceSensitive.eye_color}</h4>
                             <h4>Birth Year: {forceSensitive.birth_year}</h4>
                             <h4>Mass: {forceSensitive.mass} kg</h4>
